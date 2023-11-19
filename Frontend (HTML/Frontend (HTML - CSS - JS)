@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Chat</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const message = document.getElementById('user-input').value;
+            const chatBox = document.getElementById('chat-box');
+
+            // Send user message to the backend
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display AI response in the chat box
+                chatBox.innerHTML += `<p>User: ${message}</p>`;
+                chatBox.innerHTML += `<p>AI: ${data.response}</p>`;
+            });
+
+            document.getElementById('user-input').value = ''; // Clear input field
+        }
+    </script>
+</body>
+</html>
