@@ -1,0 +1,16 @@
+import pyttsx3
+
+def read_aloud(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
+if __name__ == "__main__":
+    conversation = [
+        "Hey there!",
+        "How are you doing?",
+        "I'm good, thanks for asking."
+    ]
+
+    for line in conversation:
+        read_aloud(line)
